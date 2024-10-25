@@ -14,8 +14,7 @@ This project is a collection of scripts and configuration files to setup a Ubunt
 ## Requirements and Features
 Automated and fully reproducible setup of a Ubuntu Desktop VM making the virtual machine ready for development. By doing this, the virtual machine becomes disposable and can be recreated at any time.
 
-```kroki-ditaa
-
+```kroki-ditaa no-separation=true
     +----------------+
     |  bootstrap.sh  |
     +---------+------+
@@ -34,7 +33,6 @@ Automated and fully reproducible setup of a Ubuntu Desktop VM making the virtual
 |    +----------------+    +----------------+    |
 |                                                |
 +------------------------------------------------+
-
 ```
 
 The VM represents a sandbox and development environment for Kubernetes-related tasks, proof-of-concepts and experiments. The bootstrap script installs Docker and minikube (among other tools).
@@ -66,7 +64,11 @@ To test the provisioning scripts locally, you can use Vagrant. The `Vagrantfile`
 ## Compliance Tests
 This repository provides a [Chef InSpec](https://docs.chef.io/inspec) profile designed to verify the installation of required packages, binaries, and software, ensuring that they are present and correctly installed. The profile checks for essential components, including package installations, the existence and permissions of binaries, and verifies the proper structure of the filesystem. Additionally, it ensures that utility scripts and configurations needed for Minikube are in place as expected.
 
-On top of that, the [dev-sec/linux-baseline](https://github.com/dev-sec/linux-baseline) is executed as well to check the security of the system.
+On top of that, the [dev-sec/linux-baseline](https://github.com/dev-sec/linux-baseline) is executed as well to check the security of the system. For your Ubuntu system to comply with the Linux Baseline, you can run the hardening script from this repository.
+
+```bash
+sudo curl -fsSL https://raw.githubusercontent.com/sommerfeld-io/vm-ubuntu/refs/heads/main/components/provision/hardening.sh | bash -
+```
 
 The InSpec binary is installed from the bootstrap script.
 
