@@ -15,6 +15,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision "shell", path: "components/provision/bootstrap.sh"
+  config.vm.provision "shell", path: "components/provision/hardening.sh"
   config.vm.provision "shell", path: "components/provision/bootstrap-vagrant.sh", privileged: false
 
   # Fix permissions and ownership because bootstrap.sh is run as root.
@@ -33,7 +34,7 @@ Vagrant.configure("2") do |config|
   # Run inspec tests from script inside Vagrantbox
   config.vm.provision "shell", inline: "(cd /vagrant/components/test-compliance && ./run.sh)", privileged: false
 
-  # Portainer
+  # Portainer from VM
   config.vm.network "forwarded_port", guest: 7990, host: 7990
 
   # minikube port range

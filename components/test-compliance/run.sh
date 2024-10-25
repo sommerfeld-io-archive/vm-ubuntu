@@ -26,7 +26,7 @@ echo "[INFO] ========================================================"
 
 PROFILES=(
   'vm-ubuntu'
-  # 'https://github.com/dev-sec/linux-baseline'
+  'https://github.com/dev-sec/linux-baseline'
 )
 for profile in "${PROFILES[@]}"; do
   echo "[INFO] Validate profile $profile"
