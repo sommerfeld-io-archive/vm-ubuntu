@@ -3,7 +3,10 @@
 # @brief Bootstrap script to provision the Vagrantbox and to install into non-virtual Ubuntu systems.
 # @description
 #   This script is used to provision the Vagrantbox and to install into non-virtual Ubuntu systems.
-#   It installs some basic packages and tools, Docker, minikube, Helm, k9s and Inspec.
+#   It installs
+#   - some basic packages and tools
+#   - Docker, minikube and helm
+#   - Ansible
 
 # shellcheck disable=SC1091
 
@@ -100,6 +103,13 @@ readonly K9S_VERSION="0.32.5"
 curl -fsSL -o /tmp/k9s.deb https://github.com/derailed/k9s/releases/download/v$K9S_VERSION/k9s_linux_amd64.deb
 sudo apt-get install -y /tmp/k9s.deb
 rm /tmp/k9s.deb
+
+
+echo "[INFO] Install Ansible"
+sudo apt-get update
+sudo apt-get install -y software-properties-common
+sudo add-apt-repository -y --update ppa:ansible/ansible
+sudo aptget install -y ansible
 
 
 echo "[INFO] Clean up"
