@@ -14,8 +14,7 @@ This project is a collection of scripts and configuration files to setup a Ubunt
 ## Requirements and Features
 Automated and fully reproducible setup of a Ubuntu Desktop VM making the virtual machine ready for development. By doing this, the virtual machine becomes disposable and can be recreated at any time.
 
-```kroki-ditaa
-
+```kroki-ditaa no-separation=true
     +----------------+
     |  bootstrap.sh  |
     +---------+------+
@@ -34,7 +33,6 @@ Automated and fully reproducible setup of a Ubuntu Desktop VM making the virtual
 |    +----------------+    +----------------+    |
 |                                                |
 +------------------------------------------------+
-
 ```
 
 The VM represents a sandbox and development environment for Kubernetes-related tasks, proof-of-concepts and experiments. The bootstrap script installs Docker and minikube (among other tools).
