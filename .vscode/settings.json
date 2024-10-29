@@ -14,6 +14,8 @@
         "editor.formatOnSave": true,
         "editor.formatOnPaste": true
     },
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
     "cSpell.words": [
         "Vagrantbox"
     ]
