@@ -1,7 +1,9 @@
 # Contribute to this Project
+
 [file-issues]: https://github.com/sommerfeld-io/template-repository/issues
 
 ## Code
+
 We're thrilled that you'd like to contribute to this project. You can do this by submitting a pull request.
 
 - Fork and clone the repository
@@ -21,9 +23,11 @@ Here are a few things you can do that will increase the likelihood of your pull 
 - Write [good commit messages](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
 
 ## Bug Reports
+
 We'd love to hear your feedback on this project. Feel free to [submit an issue][file-issues] explaining the bug you've found. Please use the issue template for Bug Reports to ensure that we have all the necessary information to reproduce the bug.
 
 ## Feature Requests
+
 We'd love to hear your feedback on this project. Feel free to [submit an issue][file-issues] explaining your feature request. We're also open to ideas and suggestions for improvements.
 
 To increase the likelihood of your feature request being accepted, please write your request in the form of a user story and add some acceptance criteria (ideally in Given-When-Then syntax).
