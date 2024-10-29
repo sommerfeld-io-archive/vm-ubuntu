@@ -28,33 +28,23 @@ repos:
         name: lint-yaml
         language: script
         entry: /bin/bash -c 'docker compose up lint-yaml --exit-code-from lint-yaml'
-  - repo: local
-    hooks:
       - id: lint-workflows
         name: lint-workflows
         language: script
         entry: /bin/bash -c 'docker compose up lint-workflows --exit-code-from lint-workflows'
-  - repo: local
-    hooks:
       - id: lint-filenames
         name: lint-filenames
         language: script
         entry: /bin/bash -c 'docker compose up lint-filenames --exit-code-from lint-filenames'
-  - repo: local
-    hooks:
       - id: lint-folders
         name: lint-folders
         language: script
         entry: /bin/bash -c 'docker compose up lint-folders --exit-code-from lint-folders'
-  - repo: local
-    hooks:
       - id: lint-inspec-profile
         name: lint-inspec-profile
         language: script
         entry: /bin/bash -c 'docker compose up lint-inspec-profile --exit-code-from lint-inspec-profile'
-  # - repo: local
-  #   hooks:
-  #     - id: lint-dockerfile
-  #       name: lint-dockerfile
-  #       language: script
-  #       entry: /bin/bash -c 'docker compose up lint-dockerfile --exit-code-from lint-dockerfile'
+      # - id: lint-dockerfile
+      #   name: lint-dockerfile
+      #   language: script
+      #   entry: /bin/bash -c 'docker compose up lint-dockerfile --exit-code-from lint-dockerfile'
