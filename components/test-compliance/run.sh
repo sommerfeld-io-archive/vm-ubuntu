@@ -4,6 +4,11 @@
 # @description
 #   This script runs the audit tests defined in the InSpec profile to check if the setup is as
 #   intended.
+#
+#   A custom InSpec profile is used to check the setup. Additionally parts of the
+#   <https://github.com/dev-sec/linux-baseline> are checked as well. Hardware- and network-related
+#   checks are omitted because the setup is a virtual machine. E.g. CPU and network is controlled
+#   by the virtualization software and not by the host system.
 
 
 set -o errexit
@@ -24,7 +29,7 @@ echo "[INFO]   https://sommerfeld-io.github.io/vm-ubuntu"
 echo "[INFO] ========================================================"
 
 
-readonly EXCLUDE_CONTROLS='/^(?!os-14|os-16).*$/'
+readonly EXCLUDE_CONTROLS='/^(?!os-12|os-14|os-15|os-16|sysctl-).*$/'
 PROFILES=(
   'vm-ubuntu'
   'https://github.com/dev-sec/linux-baseline'
