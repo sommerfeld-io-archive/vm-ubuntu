@@ -26,6 +26,7 @@ control 'packages-01' do
         docker-compose-plugin
         inspec
         k9s
+        ansible
     )
     PACKAGES.each do |p|
         describe package(p) do
