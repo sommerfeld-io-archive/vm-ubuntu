@@ -18,14 +18,14 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "components/provision/hardening.sh"
   config.vm.provision "shell", path: "components/provision/bootstrap-vagrant.sh", privileged: false
 
-  # Fix permissions and ownership because bootstrap.sh is run as root.
+  # Fix permissions and ownership because bootstrap.sh is run as root
   config.vm.provision "shell", inline: "chown -R vagrant:vagrant /opt/vm-ubuntu"
   config.vm.provision "shell", inline: "chmod -R 755 /opt/vm-ubuntu"
-  config.vm.provision "shell", inline: "chmod -x /opt/vm-ubuntu/portainer/docker-compose.yml"
+  config.vm.provision "shell", inline: "chmod 644 /opt/vm-ubuntu/portainer/docker-compose.yml"
 
-  # Overwrite files from remote repository with local files to allow for local development.
-  # This section copies the files from the local repository to the Vagrant box.
-  # The original files are also available in the Vagrant box in the /vagrant directory.
+  # Overwrite files from remote repository with local files to allow for local development
+  # This section copies the files from the local repository to the Vagrant box
+  # The original files are also available in the Vagrant box in the /vagrant directory
   config.vm.provision "file", source: "components/k8s/minikube-startup.sh", destination: "/opt/vm-ubuntu/minikube-startup.sh"
   config.vm.provision "file", source: "components/k8s/minikube-shutdown.sh", destination: "/opt/vm-ubuntu/minikube-shutdown.sh"
   config.vm.provision "file", source: "components/k8s/minikube-delete.sh", destination: "/opt/vm-ubuntu/minikube-delete.sh"
