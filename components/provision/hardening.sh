@@ -1,6 +1,6 @@
 #!/bin/bash
 # @file hardening.sh
-# @brief ..
+# @brief Harden the system by applying security best practices.
 # @description
 #   This script is designed to harden the system by applying security best practices. The goal is
 #   to comply with the <https://github.com/dev-sec/linux-baseline> InSpec profile.
