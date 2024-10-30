@@ -34,3 +34,34 @@ for old in "${!replacements[@]}"; do
     new="${replacements[$old]}"
     sudo sed -i "s/$old/$new/" "$target"
 done
+
+
+target="/etc/modprobe.d/dev-sec.conf"
+echo "[INFO] Update $target"
+sudo rm -f "$target"
+declare -a settings=(
+    "install cramfs /bin/true"
+    "install freevxfs /bin/true"
+    "install jffs2 /bin/true"
+    "install hfs /bin/true"
+    "install hfsplus /bin/true"
+    "install udf /bin/true"
+    "install vfat /bin/true"
+)
+for setting in "${settings[@]}"; do
+    echo "$setting" | sudo tee -a "$target"
+done
+sudo chmod 644 "$target"
+
+echo "[INFO] Update cron permissions"
+declare -a cron_config=(
+    "/etc/cron.d"
+    "/etc/crontab"
+    "/etc/cron.hourly"
+    "/etc/cron.daily"
+    "/etc/cron.weekly"
+    "/etc/cron.monthly"
+)
+for cfg in "${cron_config[@]}"; do
+    sudo chmod 711 "$cfg"
+done
