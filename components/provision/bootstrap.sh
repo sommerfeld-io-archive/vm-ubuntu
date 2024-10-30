@@ -32,6 +32,7 @@ sudo apt-get install -y apt-transport-https \
   curl \
   gnupg \
   lsb-release \
+  auditd \
   git \
   tilix \
   tmux \
