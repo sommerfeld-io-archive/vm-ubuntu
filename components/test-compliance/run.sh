@@ -39,5 +39,5 @@ for profile in "${PROFILES[@]}"; do
   inspec check "$profile" --chef-license accept-no-persist
 
   echo "[INFO] Run profile $profile"
-  inspec exec "$profile" --chef-license accept-no-persist --controls "$EXCLUDE_CONTROLS"
+  inspec exec "$profile" --chef-license accept-no-persist --controls "$EXCLUDE_CONTROLS" --no-distinct-exit
 done
