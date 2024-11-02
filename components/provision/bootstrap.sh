@@ -106,6 +106,12 @@ sudo apt-get install -y /tmp/k9s.deb
 rm /tmp/k9s.deb
 
 
+echo "[INFO] Install ArgoCD Autopilot"
+VERSION=$(curl --silent "https://api.github.com/repos/argoproj-labs/argocd-autopilot/releases/latest" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
+curl -fsSL --output - "https://github.com/argoproj-labs/argocd-autopilot/releases/download/$VERSION/argocd-autopilot-linux-amd64.tar.gz" | tar zx
+mv ./argocd-autopilot-* /usr/local/bin/argocd-autopilot
+
+
 echo "[INFO] Install Ansible"
 readonly UBUNTU_CODENAME=jammy
 curl -fsSL "https://keyserver.ubuntu.com/pks/lookup?fingerprint=on&op=get&search=0x6125E2A8C77F2818FB7BD15B93C4A3FD7BB9C367" | sudo gpg --dearmour -o /usr/share/keyrings/ansible-archive-keyring.gpg

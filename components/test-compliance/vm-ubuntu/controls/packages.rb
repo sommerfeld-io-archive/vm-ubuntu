@@ -61,6 +61,7 @@ control 'packages-03' do
     COMMANDS = %w(
         /usr/local/bin/helm
         /usr/local/bin/minikube
+        /usr/local/bin/argocd-autopilot
     )
     COMMANDS.each do |c|
         describe file(c) do
