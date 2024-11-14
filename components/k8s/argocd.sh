@@ -1,5 +1,5 @@
 #!/bin/bash
-# @file argocd-bootstrap.sh
+# @file argocd.sh
 # @brief Bootstrap script to deploy ArgoCD and applications on minikube.
 # @description
 #   This script is used to deploy ArgoCD and applications on minikube. The installation of
