@@ -6,6 +6,6 @@ copyright: sommerfeld.io
 copyright_email: sebastian@sommerfeld.io
 license: MIT
 summary: source2adoc compliance profile
-version: 1.9.5
+version: 1.10.0
 supports:
   platform: os
