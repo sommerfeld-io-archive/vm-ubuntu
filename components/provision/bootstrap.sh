@@ -16,7 +16,7 @@ set -o nounset
 # set -o xtrace
 
 
-echo "[INFO] ========================================================"
+echo "[INFO] === Environment ========================================"
 echo "User     = $USER"
 echo "Hostname = $HOSTNAME"
 echo "Home dir = $HOME"
