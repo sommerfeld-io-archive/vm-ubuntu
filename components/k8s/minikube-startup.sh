@@ -30,6 +30,14 @@ set -o pipefail
 set -o nounset
 # set -o xtrace
 
+echo -e "\e[33m"
+echo "[INFO] ========================================================="
+echo "[INFO] You can adjust the number of nodes with the --nodes flag."
+echo "[INFO] For the changes to take effect, you need to delete the"
+echo "[INFO] Minikube cluster."
+echo "[INFO] ========================================================="
+echo -e "\e[0m"
+
 
 echo "[INFO] ========================================================"
 echo "[INFO] Running as user $USER"

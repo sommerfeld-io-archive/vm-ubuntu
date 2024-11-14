@@ -20,7 +20,7 @@ spec:
       kind: Application
   project: default
   source:
-    path: components/k8s/argocd/projects
+    path: components/k8s/manifests/projects
     repoURL: https://github.com/sommerfeld-io/vm-ubuntu.git
   syncPolicy:
     automated:

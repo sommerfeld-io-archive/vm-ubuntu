@@ -30,7 +30,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "file", source: "components/k8s/minikube-shutdown.sh", destination: "/opt/vm-ubuntu/minikube-shutdown.sh"
   config.vm.provision "file", source: "components/k8s/minikube-delete.sh", destination: "/opt/vm-ubuntu/minikube-delete.sh"
   config.vm.provision "file", source: "components/k8s/minikube-delete.sh", destination: "/opt/vm-ubuntu/minikube-dashboard.sh"
-  config.vm.provision "file", source: "components/k8s/argocd-install.sh", destination: "/opt/vm-ubuntu/argocd-install.sh"
+  config.vm.provision "file", source: "components/k8s/argocd-bootstrap.sh", destination: "/opt/vm-ubuntu/argocd-bootstrap.sh"
 
   # Run inspec tests from script inside Vagrantbox
   config.vm.provision "shell", inline: "(cd /vagrant/components/test-compliance && ./run.sh)", privileged: false

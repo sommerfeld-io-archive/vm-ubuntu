@@ -18,7 +18,7 @@ spec:
       kind: Application
   project: default
   source:
-    path: components/k8s/argocd/bootstrap/argo-cd
+    path: components/k8s/manifests/bootstrap/argo-cd
     repoURL: https://github.com/sommerfeld-io/vm-ubuntu.git
   syncPolicy:
     automated:

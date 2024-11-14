@@ -36,7 +36,7 @@ spec:
   generators:
     - git:
         files:
-          - path: components/k8s/argocd/apps/**/default-project/config.json
+          - path: components/k8s/manifests/apps/**/default-project/config.json
         repoURL: https://github.com/sommerfeld-io/vm-ubuntu.git
         requeueAfterSeconds: 20
         revision: ""
@@ -47,7 +47,7 @@ spec:
             project: ""
     - git:
         files:
-          - path: components/k8s/argocd/apps/**/default-project/config_dir.json
+          - path: components/k8s/manifests/apps/**/default-project/config_dir.json
         repoURL: https://github.com/sommerfeld-io/vm-ubuntu.git
         requeueAfterSeconds: 20
         revision: ""
