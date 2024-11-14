@@ -7,6 +7,9 @@
 #
 #   ArgoCD Autopilot is used to deploy ArgoCD itselt to the Kubernetes cluster. ArgoCD then deploys
 #   the applications from the `XXXXXXXXXXXXXXXXXXXX` directory.
+#
+#   Minikube must be up-and-running for argocd-autopilot to work. The minikube API server must be
+#   reachable. The script will fail if minikube is not running.
 
 # shellcheck disable=SC1091
 
@@ -22,9 +25,9 @@ readonly ARGO_PROJECT="default-project"
 
 
 echo "[INFO] === Github Token ========================================"
-read -spr "Enter Token: " GIT_TOKEN
+read -s -r -p "Enter Token: " GIT_TOKEN
 export GIT_TOKEN
-readonly GIT_TOKEN
+echo
 
 
 echo "[INFO] === Environment ========================================"
@@ -53,6 +56,10 @@ argocd-autopilot app create hello-world \
 
 echo "[INFO] === Login =============================================="
 echo "Execute the port forward command, and browse to"
-echo "http://localhost:8080. You can log in with user: admin, and the"
+echo "http://localhost:7900. You can log in with user: admin, and the"
 echo "password from the previous step."
+echo "  kubectl port-forward svc/argocd-server -n argocd 7900:80"
+echo
+echo "Get the password with:"
+echo "  kubectl -n argocd get secret argocd-initial-admin-secret -o yaml"
 echo "[INFO] ========================================================"

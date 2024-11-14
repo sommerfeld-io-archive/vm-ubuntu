@@ -11,8 +11,7 @@
 
 		"components/portainer",
 		"components/provision",
-		"components/k8s/argocd",
-		"components/k8s/manifests",
+		"components/k8s/argocd/**",
 		"components/services",
 		"components/services/minikube",
 		"components/test-compliance/*/controls",
