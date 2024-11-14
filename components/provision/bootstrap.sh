@@ -3,7 +3,10 @@
 # @brief Bootstrap script to provision the Vagrantbox and to install into non-virtual Ubuntu systems.
 # @description
 #   This script is used to provision the Vagrantbox and to install into non-virtual Ubuntu systems.
-#   It installs some basic packages and tools, docker, minikube and helm.
+#   It installs
+#   - some basic packages and tools
+#   - Docker, minikube and helm
+#   - Ansible
 
 # shellcheck disable=SC1091
 
@@ -13,7 +16,7 @@ set -o nounset
 # set -o xtrace
 
 
-echo "[INFO] ========================================================"
+echo "[INFO] === Environment ========================================"
 echo "User     = $USER"
 echo "Hostname = $HOSTNAME"
 echo "Home dir = $HOME"
@@ -29,6 +32,7 @@ sudo apt-get install -y apt-transport-https \
   curl \
   gnupg \
   lsb-release \
+  auditd \
   git \
   tilix \
   tmux \
@@ -69,16 +73,18 @@ fi
 sudo usermod -aG docker "$USER"
 newgrp docker
 
+echo "[INFO] Test docker"
+docker run --rm hello-world:latest
+
 
 echo "[INFO] Install minikube"
-
-curl -L -o /tmp/minikube-linux-amd64 https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+readonly MINIKUBE_VERSION="latest"
+curl -fsSL -o /tmp/minikube-linux-amd64 https://storage.googleapis.com/minikube/releases/$MINIKUBE_VERSION/minikube-linux-amd64
 sudo install /tmp/minikube-linux-amd64 /usr/local/bin/minikube
 rm /tmp/minikube-linux-amd64
 
 
 echo "[INFO] Install helm"
-
 curl -fsSL -o /tmp/get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 /tmp/get_helm.sh
 /tmp/get_helm.sh
@@ -87,19 +93,36 @@ rm /tmp/get_helm.sh
 
 echo "[INFO] Install Inspec"
 readonly INSPEC_VERSION="5.22.36"
-curl -o /tmp/inspec.deb "https://packages.chef.io/files/stable/inspec/$INSPEC_VERSION/ubuntu/20.04/inspec_$INSPEC_VERSION-1_amd64.deb"
+curl -fsSL -o /tmp/inspec.deb "https://packages.chef.io/files/stable/inspec/$INSPEC_VERSION/ubuntu/20.04/inspec_$INSPEC_VERSION-1_amd64.deb"
 sudo dpkg -i /tmp/inspec.deb
 rm /tmp/inspec.deb
 sudo apt-get install -y -f
 
 
+echo "[INFO] Install k9s"
+readonly K9S_VERSION="0.32.5"
+curl -fsSL -o /tmp/k9s.deb https://github.com/derailed/k9s/releases/download/v$K9S_VERSION/k9s_linux_amd64.deb
+sudo apt-get install -y /tmp/k9s.deb
+rm /tmp/k9s.deb
+
+
+echo "[INFO] Install ArgoCD Autopilot"
+VERSION=$(curl --silent "https://api.github.com/repos/argoproj-labs/argocd-autopilot/releases/latest" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
+curl -fsSL --output - "https://github.com/argoproj-labs/argocd-autopilot/releases/download/$VERSION/argocd-autopilot-linux-amd64.tar.gz" | tar zx
+mv ./argocd-autopilot-* /usr/local/bin/argocd-autopilot
+
+
+echo "[INFO] Install Ansible"
+readonly UBUNTU_CODENAME=jammy
+curl -fsSL "https://keyserver.ubuntu.com/pks/lookup?fingerprint=on&op=get&search=0x6125E2A8C77F2818FB7BD15B93C4A3FD7BB9C367" | sudo gpg --dearmour -o /usr/share/keyrings/ansible-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/ansible-archive-keyring.gpg] http://ppa.launchpad.net/ansible/ansible/ubuntu $UBUNTU_CODENAME main" | sudo tee /etc/apt/sources.list.d/ansible.list
+sudo apt-get update
+sudo apt-get install -y ansible
+
+
 echo "[INFO] Clean up"
 sudo apt-get clean
 sudo rm -rf /var/lib/apt/lists/*
-
-
-echo "[INFO] Test docker"
-docker run --rm hello-world:latest
 
 
 echo "[INFO] Setup folders"

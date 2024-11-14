@@ -1,9 +1,9 @@
-title "/opt/vm-ubuntu checks"
+title '/opt/vm-ubuntu checks'
 
-control "opt-01" do
+control 'opt-01' do
     impact 0.7
-    title "Scripts should exist and should have correct permissions"
-    desc "Check if scripts exist and have the correct permissions."
+    title 'Scripts should exist and should have correct permissions'
+    desc 'Check if scripts exist and have the correct permissions.'
 
     SCRIPS = %w(
         /opt/vm-ubuntu/minikube-startup.sh
@@ -24,10 +24,10 @@ control "opt-01" do
     end
 end
 
-control "opt-02" do
+control 'opt-02' do
     impact 0.7
-    title "Docker compose files should exist and should have correct permissions"
-    desc "Check if docker compose files exist and have the correct permissions."
+    title 'Docker compose files should exist and should have correct permissions'
+    desc 'Check if docker compose files exist and have the correct permissions.'
 
     FILES = %w(
         /opt/vm-ubuntu/portainer/docker-compose.yml

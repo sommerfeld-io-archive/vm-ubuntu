@@ -46,6 +46,7 @@ ignore:
   # linter definitions etc.
   - .hadolint.yml
   - .ls-lint.yml
+  - .markdownlint.yml
   - .yamllint.yml
   - .pre-commit-config.yaml
   - .releaserc

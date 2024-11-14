@@ -3,7 +3,7 @@ title 'software packages'
 control 'packages-01' do
     impact 1.0
     title 'Packages should be installed'
-    desc 'Software packages should be installed'
+    desc 'Required software packages should be installed'
 
     PACKAGES = %w(
         apt-transport-https
@@ -25,6 +25,8 @@ control 'packages-01' do
         docker-buildx-plugin
         docker-compose-plugin
         inspec
+        k9s
+        ansible
     )
     PACKAGES.each do |p|
         describe package(p) do
@@ -36,7 +38,7 @@ end
 control 'packages-02' do
     impact 0.5
     title 'Snap packages should be installed'
-    desc 'Snap packages should be installed'
+    desc 'Required snap packages should be installed'
 
     SNAPS = %w(
         /snap/bin/code
@@ -54,11 +56,12 @@ end
 control 'packages-03' do
     impact 1.0
     title 'Binary commands should be installed'
-    desc 'Software packages run from binary commands should be installed'
+    desc 'Required binary commands should be installed'
 
     COMMANDS = %w(
         /usr/local/bin/helm
         /usr/local/bin/minikube
+        /usr/local/bin/argocd-autopilot
     )
     COMMANDS.each do |c|
         describe file(c) do
@@ -73,12 +76,13 @@ end
 control 'packages-99' do
     impact 1.0
     title 'No installation artifacts should remain on the system'
-    desc 'All downloads and scripts and other artifacts should be removed'
+    desc 'No installation artifacts should remain on the system, all downloads and scripts should be removed'
 
     ARTIFACT = %w(
         /tmp/minikube-linux-amd64
         /tmp/get_helm.sh
         /tmp/inspec.deb
+        /tmp/k9s.deb
     )
     ARTIFACT.each do |a|
         describe file(a) do

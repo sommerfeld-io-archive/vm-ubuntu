@@ -15,7 +15,7 @@ set -o nounset
 readonly bashrc="$HOME/.bashrc"
 
 
-echo "[INFO] ========================================================"
+echo "[INFO] === Environment ========================================"
 echo "[INFO] Running as user $USER"
 hostnamectl
 echo "[INFO] ========================================================"

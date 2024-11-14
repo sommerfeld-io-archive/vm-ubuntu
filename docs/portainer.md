@@ -4,6 +4,7 @@ hide:
 ---
 
 # Run Portainer
+
 The bootstrap script downloads the `components/portainer/docker-compose.yml` script from this repo into `/opt/vm-ubuntu/portainer/docker-compose.yml`.
 
 The portainer password is written from the `docker-compose.yml` file to the local filesystem when starting the stack. The password is written into `portainer.passwd` next to the `docker-compose.yml`.
