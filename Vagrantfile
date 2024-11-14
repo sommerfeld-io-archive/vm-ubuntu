@@ -38,9 +38,6 @@ Vagrant.configure("2") do |config|
   # Portainer from VM
   config.vm.network "forwarded_port", guest: 7990, host: 7990
 
-  # ArgoCD from VM
-  config.vm.network "forwarded_port", guest: 7900, host: 7900
-
   # minikube port range
   (7000..7080).each do |port|
     config.vm.network "forwarded_port", guest: port, host: port

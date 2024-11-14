@@ -25,12 +25,15 @@ set -o nounset
 # set -o xtrace
 
 
+readonly Y="\e[33m"
+readonly D="\e[0m"
 
 export GIT_REPO="https://github.com/sommerfeld-io/vm-ubuntu.git/components/k8s/manifests"
 readonly ARGO_PROJECT="default-project"
+readonly ARGO_PORT=7900
 
 
-echo -e "\e[33m"
+echo -e "$Y"
 echo "[WARN] ========================================================="
 echo "[WARN] Only bootstrap ArgoCD, when there are no manifests in the"
 echo "[WARN] repository (components/k8s/manifests)!"
@@ -43,13 +46,15 @@ echo "[WARN] cluster based on existing configuration (e.g. after you"
 echo "[WARN] deleted the minikube cluster), use the recover option"
 echo "[WARN] instead."
 echo "[WARN] ========================================================="
-echo -e "\e[0m"
+echo -e "$D"
 
 
-echo "[INFO] === Github Token ========================================"
-read -s -r -p "Enter Token: " GIT_TOKEN
-export GIT_TOKEN
-echo
+function enterToken() {
+  echo "[INFO] === Github Token ========================================"
+  read -s -r -p "Enter Token: " GIT_TOKEN
+  export GIT_TOKEN
+  echo
+}
 
 
 echo "[INFO] === Environment ========================================"
@@ -61,14 +66,21 @@ echo "[INFO] === ArgoCD Autopilot version ==========================="
 argocd-autopilot version
 echo "Repo and path = $GIT_REPO"
 echo "[INFO] ========================================================"
+echo "[INFO] Documentation"
+echo "[INFO]   https://sommerfeld-io.github.io/vm-ubuntu"
+echo "[INFO] ========================================================"
 
-echo "[INFO] === Select Mode ========================================"
+
 PS3='Please select the ation: '
 readonly OPTION_BOOTSTRAP="bootstrap"
 readonly OPTION_RECOVER="recover"
-select opt in "$OPTION_BOOTSTRAP" "$OPTION_RECOVER"; do
+readonly OPTION_PORT_FORWARD="access-argocd"
+
+select opt in "$OPTION_BOOTSTRAP" "$OPTION_RECOVER" "$OPTION_PORT_FORWARD"; do
   case $opt in
     "$OPTION_BOOTSTRAP")
+      enterToken
+
       echo "[INFO] Bootstrap ArgoCD"
       argocd-autopilot repo bootstrap
 
@@ -83,23 +95,33 @@ select opt in "$OPTION_BOOTSTRAP" "$OPTION_RECOVER"; do
       break
       ;;
     "$OPTION_RECOVER")
+      enterToken
+
       echo "[INFO] Recover ArgoCD"
       argocd-autopilot repo bootstrap --recover
       break
       ;;
+    "$OPTION_PORT_FORWARD")
+      echo "[INFO] === Access ArgoCD ======================================"
+      echo -e "[INFO] Default Username = ${Y}admin${D}"
+      password=$(minikube kubectl -- -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
+      echo -e "[INFO] Default Password = ${Y}${password}${D}"
+      echo "[INFO]"
+      echo "[INFO] Remember to establish an SSH tunnel before accessing the"
+      echo "[INFO] ArgoCD UI through the browser"
+      echo "[INFO]   vagrant ssh -- -L $ARGO_PORT:localhost:$ARGO_PORT"
+      echo "[INFO]"
+      echo "[INFO] Some browsers might block the connection, because the"
+      echo "[INFO] certificate is self-signed."
+      echo "[INFO]"
+      echo "[INFO] Executing the port forward command ..."
+      echo -e "[INFO] Browse to ${Y}https://localhost:$ARGO_PORT${D}"
+      echo
+      minikube kubectl -- port-forward svc/argocd-server -n argocd "$ARGO_PORT:443"
+      break
+      ;;
     *)
-      echo "Invalid option $REPLY"
+      echo "[ERROR] Invalid option, choose again ..."
       ;;
   esac
 done
-
-
-echo "[INFO] === Login =============================================="
-echo "Execute the port forward command, and browse to"
-echo "http://localhost:7900. You can log in with user: admin, and the"
-echo "password from the previous step."
-echo "  kubectl port-forward svc/argocd-server -n argocd 7900:80"
-echo
-echo "Get the password with:"
-echo "  kubectl -n argocd get secret argocd-initial-admin-secret -o yaml"
-echo "[INFO] ========================================================"
