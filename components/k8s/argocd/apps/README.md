@@ -7,31 +7,31 @@ argocd-autopilot app create <APP_NAME> --app <APP_SPECIFIER> -p <PROJECT_NAME>
 ```
 
 ## Application Types
->
-> If you don't specify the application `--type` argocd-autopilot will try to clone the source repository and infer the application type [automatically](https://argoproj.github.io/argo-cd/user-guide/tool_detection/#tool-detection)
 
-* ### Directory application
+If you don't specify the application `--type` argocd-autopilot will try to clone the source repository and infer the application type [automatically](https://argoproj.github.io/argo-cd/user-guide/tool_detection/#tool-detection)
 
-  Such an application references a specific directory at a given repo URL, path and revision. It will be persisted in the GitOps Repository as a single file at `apps/<APP_NAME>/<PROJECT_NAME>/config.json`.
+### Directory application
 
-  #### Example
+Such an application references a specific directory at a given repo URL, path and revision. It will be persisted in the GitOps Repository as a single file at `apps/<APP_NAME>/<PROJECT_NAME>/config.json`.
 
-  ```bash
-  argocd-autopilot app create dir-example --app github.com/argoproj-labs/argocd-autopilot/examples/demo-dir/ -p <PROJECT_NAME> --type dir
-  ```
+#### Example
 
-* ### Kustomize application
+```bash
+argocd-autopilot app create dir-example --app github.com/argoproj-labs/argocd-autopilot/examples/demo-dir/ -p <PROJECT_NAME> --type dir
+```
 
-  A Kustomize application will have <u>exactly one</u>: `apps/<APP_NAME>/base/kustomization.yaml` file, and one or more `apps/<APP_NAME>/overlays/<PROJECT_NAME>/` folders.
+### Kustomize application
 
-  The `apps/<APP_NAME>/base/kustomization.yaml` file is created the first time you create the application. The `apps/<APP_NAME>/overlays/<PROJECT_NAME>/` folder is created for each project you install this application on. So all overlays of the same application are using the same base `kustomization.yaml`.
+A Kustomize application will have <u>exactly one</u>: `apps/<APP_NAME>/base/kustomization.yaml` file, and one or more `apps/<APP_NAME>/overlays/<PROJECT_NAME>/` folders.
 
-  #### Example
+The `apps/<APP_NAME>/base/kustomization.yaml` file is created the first time you create the application. The `apps/<APP_NAME>/overlays/<PROJECT_NAME>/` folder is created for each project you install this application on. So all overlays of the same application are using the same base `kustomization.yaml`.
 
-  Try running the following command:
+#### Example
 
-  ```bash
-  argocd-autopilot app create hello-world --app github.com/argoproj-labs/argocd-autopilot/examples/demo-app/ -p <PROJECT_NAME> --type kustomize
-  ```
+Try running the following command:
 
-###### * If you did not create a project yet take a look at: [creating a project](https://argocd-autopilot.readthedocs.io/en/stable/Getting-Started/#add-a-project-and-an-application)
+```bash
+argocd-autopilot app create hello-world --app github.com/argoproj-labs/argocd-autopilot/examples/demo-app/ -p <PROJECT_NAME> --type kustomize
+```
+
+If you did not create a project yet take a look at: [creating a project](https://argocd-autopilot.readthedocs.io/en/stable/Getting-Started/#add-a-project-and-an-application)
