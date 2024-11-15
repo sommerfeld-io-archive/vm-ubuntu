@@ -96,6 +96,20 @@ kubectl -- get po -A
 minikube service list # --namespace apps
 ```
 
-## ArgoCD
+## Argo CD
 
-*TODO ...* Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+[Argo CD](https://argo-cd.readthedocs.io/en/stable/) is a declarative, GitOps continuous delivery tool for Kubernetes. Deployment is done by [Argo-CD Autopilot](https://argocd-autopilot.readthedocs.io/en/stable/). The autopilot bootstrap command will deploy an Argo CD manifest to a target K8s cluster and will commit an Argo CD Application manifest under a specific directory in your GitOps repository. This Application will manage the Argo CD installation itself - so after running this command, you will have an Argo CD deployment that manages itself through GitOps.
+
+The `components/k8s/argocd.sh` script handles bootstrapping Argo CD into this repository (which is only done once). The script also allows to forward the Argo CD port to access th Argo CD UI through a browser. When you deleted your minikube cluster, the script allows to recover the Argo CD instance based in the existing configs from this repo into a fresh minikube instance. The scripts offers an interactive prompt to choose your action.
+
+Remember to establish an SSH tunnel before accessing the ArgoCD UI through the browser.
+
+```bash
+# Tunnel the Argo CD port
+vagrant ssh -- -L 7900:localhost:7900
+
+# Tunnel the Argo CD port and the Dashboard port
+vagrant ssh -- -L 7900:localhost:7900 -L 7999:localhost:7999
+```
+
+Then browse to <https://localhost:7900>. Some browsers might block the connection, because the certificate is self-signed.

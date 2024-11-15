@@ -6,7 +6,7 @@
 #   minikube, helm, kubectl, etc is done by `bootstrap.sh`.
 #
 #   ArgoCD Autopilot is used to deploy ArgoCD itselt to the Kubernetes cluster. ArgoCD then deploys
-#   the applications from the `XXXXXXXXXXXXXXXXXXXX` directory.
+#   the applications from the `components/k8s/manifests` directory.
 #
 #   Minikube must be up-and-running for argocd-autopilot to work. The minikube API server must be
 #   reachable. The script will fail if minikube is not running.
