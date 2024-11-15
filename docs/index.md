@@ -7,7 +7,7 @@
 
 This project is a collection of scripts and configuration files to setup a Ubuntu Desktop VM.
 
-- [Documentation Website][doc-website] with instructions about Portainer, Minikube, and more
+- [Documentation Website][doc-website] with instructions about Portainer, Minikube, Argo CD, and more
 - [Github Repository][github-repo]
 - [Where to file issues][file-issues]
 - [Project Board for Issues and Pull Requests][project-board]
